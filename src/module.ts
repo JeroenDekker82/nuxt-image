@@ -18,6 +18,7 @@ const imageModule: Module<ModuleOptions> = async function imageModule (moduleOpt
     dir: resolve(nuxt.options.srcDir, nuxt.options.dir.static),
     domains: [],
     sharp: {},
+    resolutions: [1],
     // https://tailwindcss.com/docs/breakpoints
     screens: {
       xs: 320,
@@ -35,6 +36,7 @@ const imageModule: Module<ModuleOptions> = async function imageModule (moduleOpt
   }
 
   const options: ModuleOptions = defu(moduleOptions, nuxt.options.image, defaults)
+  options.resolutions = nuxt.options.image.resolutions || defaults.resolutions
 
   // Normalize domains to hostname
   options.domains = options.domains
@@ -48,6 +50,7 @@ const imageModule: Module<ModuleOptions> = async function imageModule (moduleOpt
   options[options.provider] = options[options.provider] || {}
 
   const imageOptions: Omit<CreateImageOptions, 'providers'> = pick(options, [
+    'resolutions',
     'screens',
     'presets',
     'provider',

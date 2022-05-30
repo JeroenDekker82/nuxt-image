@@ -7,6 +7,8 @@ import NuxtPicture from '~image/components/nuxt-picture.vue'
 
 const imageOptions = <%= JSON.stringify(options.imageOptions, null, 2) %>
 
+
+
 imageOptions.providers = {
 <%=options.providers.map(p => `  ['${p.name}']: { provider: ${p.importName}, defaults: ${JSON.stringify(p.runtimeOptions)} }`).join(',\n') %>
 }

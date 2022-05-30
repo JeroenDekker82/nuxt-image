@@ -28,6 +28,7 @@ export interface ImageProvider {
 }
 
 export interface CreateImageOptions {
+  resolutions: Array<number>,
   providers: {
     [name: string]: {
       defaults: any,
@@ -110,3 +111,12 @@ export interface OperationGeneratorConfig {
 }
 
 export type MapToStatic = (image: ResolvedImage, input: string) => string
+
+export interface Variant {
+    width: number;
+    height?: number;
+    size?: string;
+    screenMaxWidth?: number;
+    media?: string;
+    src: string;
+}

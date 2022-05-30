@@ -1,6 +1,6 @@
 import defu from 'defu'
 import { hasProtocol, parseURL, joinURL, withLeadingSlash } from 'ufo'
-import type { ImageOptions, ImageSizesOptions, CreateImageOptions, ResolvedImage, MapToStatic, ImageCTX, $Img } from '../types/image'
+import type { ImageOptions, ImageSizesOptions, CreateImageOptions, ResolvedImage, MapToStatic, ImageCTX, $Img, Variant } from '../types/image'
 import { imageMeta } from './utils/meta'
 import { parseSize } from './utils'
 import { useStaticImageMap } from './utils/static-map'
@@ -158,6 +158,13 @@ function getPreset (ctx: ImageCTX, name?: string): ImageOptions {
   return ctx.options.presets[name]
 }
 
+function getSrcset (ctx: ImageCTX, input: string, opts: ImageSizesOptions, variants: Variant[]) {
+  const srcsetVariants: Array<Variant> = []
+  variants.forEach((v) => { ctx.options.resolutions.forEach((r: number) => { srcsetVariants.push({ src: ctx.$img!(input, { ...opts.modifiers, width: v.width * r }, opts), width: v.width * r }) }) })
+  srcsetVariants.sort((v1, v2) => v1.width - v2.width)
+  return srcsetVariants.map(s => `${s.src} ${s.width}w`).join(', ')
+}
+
 function getSizes (ctx: ImageCTX, input: string, opts: ImageSizesOptions) {
   const width = parseSize(opts.modifiers?.width)
   const height = parseSize(opts.modifiers?.height)
@@ -213,7 +220,7 @@ function getSizes (ctx: ImageCTX, input: string, opts: ImageSizesOptions) {
 
   return {
     sizes: variants.map(v => `${v.media ? v.media + ' ' : ''}${v.size}`).join(', '),
-    srcset: variants.map(v => `${v.src} ${v.width}w`).join(', '),
+    srcset: getSrcset(ctx, input, opts, variants),
     src: defaultVar?.src
   }
 }
