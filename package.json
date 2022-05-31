@@ -1,6 +1,6 @@
 {
   "name": "@jeroendekker82/nuxt-image",
-  "version": "0.6.5",
+  "version": "0.6.6",
   "description": "Nuxt Image Module",
   "repository": "nuxt/image",
   "license": "MIT",
@@ -12,7 +12,7 @@
     "vetur"
   ],
   "scripts": {
-    "build": "siroc build && mkdist --src src/runtime --dist dist/runtime -d --ext js",
+    "build": "siroc build && mkdist --src src/runtime --target=es2019 --dist dist/runtime -d --ext js",
     "dev": "yarn nuxt playground",
     "docs:build": "cd docs && nuxt generate",
     "docs:dev": "yarn nuxt dev docs",
@@ -43,6 +43,7 @@
     "@babel/preset-env": "latest",
     "@babel/preset-typescript": "latest",
     "@cyrilf/vue-dat-gui": "latest",
+    "@jeroendekker82/mkdist": "0.0.1",
     "@nuxt/test-utils": "latest",
     "@nuxt/types": "latest",
     "@nuxt/typescript-build": "latest",
@@ -60,7 +61,6 @@
     "jest": "latest",
     "jsdom": "latest",
     "jsdom-global": "latest",
-    "mkdist": "latest",
     "nuxt-edge": "latest",
     "playwright": "latest",
     "siroc": "latest",
