@@ -35,7 +35,7 @@ export const ipxSetup: ProviderSetup = async (_providerOptions, moduleOptions, n
 
   // Warn if unhandled /_ipx endpoint only if not using `modules`
   const installedInModules = nuxt.options.modules.some(
-    (mod: string | (() => any)) => typeof mod === 'string' && mod.includes('@nuxt/image')
+    (mod: string | (() => any)) => typeof mod === 'string' && mod.includes('@jeroendekker82/nuxt-image')
   )
 
   if (!isStatic && !hasUserProvidedIPX && !installedInModules && lt(nuxt.constructor.version, '2.16.0')) {
